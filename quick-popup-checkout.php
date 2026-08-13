@@ -60,7 +60,7 @@ function qp_add_quick_buy_button()
 
     echo '<button class="qp-quick-buy button alt" data-product-id="'
         . esc_attr($product->get_id()) .
-        '">⚡Checkout</button>';
+        '">অর্ডার করুন</button>';
 }
 add_action('woocommerce_after_add_to_cart_button', 'qp_add_quick_buy_button');
 add_action('woocommerce_after_shop_loop_item', 'qp_add_quick_buy_button', 11);
@@ -82,13 +82,11 @@ function qp_ajax_add_to_cart()
 add_action('wp_ajax_qp_add_to_cart', 'qp_ajax_add_to_cart');
 add_action('wp_ajax_nopriv_qp_add_to_cart', 'qp_ajax_add_to_cart');
 
-/* Remove header/footer in popup */
+/* Hide page title in popup — do NOT remove wp_footer (breaks abandoned-cart & other scripts) */
 function qp_popup_checkout_mode()
 {
-
     if (isset($_GET['qp_popup'])) {
         add_filter('woocommerce_show_page_title', '__return_false');
-        remove_all_actions('wp_footer');
     }
 }
 add_action('wp', 'qp_popup_checkout_mode');
